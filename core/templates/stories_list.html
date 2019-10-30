@@ -1,0 +1,3 @@
+{% for story in object_list %}
+    <p>Sprint {{ story.sprint.number }}: {{story.description}} - {{ story.points }} pontos - Duração: {{ story.duration }}</p>
+{% endfor %}
