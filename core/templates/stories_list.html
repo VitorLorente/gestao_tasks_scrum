@@ -1,3 +1,42 @@
-{% for story in object_list %}
-    <p>Sprint {{ story.sprint.number }}: {{story.description}} - {{ story.points }} pontos - Duração: {{ story.duration }}</p>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Lista de histórias</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+    </head>
+    <body>
+        <label for="points-filter">Filtrar por pontos de história:</label>
+        <select id="points-filter-select">
+            <option value="0">-----</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="13">13</option>
+            <option value="21">21</option>
+        </select>
+        <button id="points-filter-button">Filtrar</button>
+        <br>
+        {% for story in object_list %}
+            <p><b>Sprint {{ story.sprint.number }}:</b> {{story.description}} - {{ story.points }} pontos - Duração: {{ story.duration }}</p>
+        {% endfor %}
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script>
+        $("#points-filter-button").click(function(){
+            var points = $("#points-filter-select").val();
+            if (parseInt(points) > 0){
+                window.location = "http://localhost:8000/story/?points=" + points;
+            }
+        });
+        </script>
+    </body>
+</html>
