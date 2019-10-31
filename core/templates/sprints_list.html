@@ -10,9 +10,27 @@
     <body>
         <div class="container">
             <h3>Total de sprints: {{ sprints_count }}</h3>
-            {% for sprint in object_list %}
-                {{ sprint.total_points }}
-            {% endfor %}
+            <br>
+            <table class="table">
+                <thead class="thead-dark">
+                    <th>Nº sprint</th>
+                    <th>Inicio</th>
+                    <th>Fim</th>
+                    <th>Pontos totais</th>
+                    <th>Ativa?</th>
+                </thead>
+                <tbody>
+                    {% for sprint in object_list %}
+                        <tr>
+                            <td width="10%">{{ sprint.number }}</td>
+                            <td>{{ sprint.start_date|date:"d/m/Y" }}</td>
+                            <td>{{ sprint.end_date|date:"d/m/Y" }}</td>
+                            <td>{{ sprint.total_points }}</td>
+                            <td>{% if sprint.active %}Sim{% else %}Não{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

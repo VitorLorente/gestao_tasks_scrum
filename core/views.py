@@ -70,6 +70,6 @@ class SprintDetail(DetailView):
         data = super().get_context_data(**kwargs)
         stories = Story.objects.filter(
             sprint=self.object
-        )
+        ).select_related('responsible')
         data['sprint_stories'] = stories
         return data
