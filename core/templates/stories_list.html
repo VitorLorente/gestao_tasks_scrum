@@ -8,6 +8,11 @@
         
     </head>
     <body>
+        {% if duration_average %}
+            <h3>Média de duração para {{ points }} pontos: {{ duration_average }}</h3>
+            <br>
+        {% endif %}
+
         <label for="points-filter">Filtrar por pontos de história:</label>
         <select id="points-filter-select">
             <option value="0">-----</option>
@@ -21,6 +26,7 @@
         </select>
         <button id="points-filter-button">Filtrar</button>
         <br>
+
         {% for story in object_list %}
             <p><b>Sprint {{ story.sprint.number }}:</b> {{story.description}} - {{ story.points }} pontos - Duração: {{ story.duration }}</p>
         {% endfor %}
@@ -33,8 +39,11 @@
         <script>
         $("#points-filter-button").click(function(){
             var points = $("#points-filter-select").val();
-            if (parseInt(points) > 0){
+            if(parseInt(points) > 0){
                 window.location = "http://localhost:8000/story/?points=" + points;
+            }
+            else if (parseInt(points) == 0){
+                window.location = "http://localhost:8000/story/";
             }
         });
         </script>
