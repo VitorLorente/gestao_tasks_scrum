@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from core.views import StoriesList
+from core.views import StoriesList, StoryDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('story/', StoriesList.as_view(), name='stories-list')
+    path('story/', StoriesList.as_view(), name='stories-list'),
+    path('story/<int:pk>/', StoryDetail.as_view(), name='story-detail')
 ]

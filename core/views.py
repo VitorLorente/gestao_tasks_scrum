@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 from django.db.models import Avg
 
 from core.models import Story
@@ -29,3 +29,17 @@ class StoriesList(ListView):
             data['duration_average'] = duration_average
             data['points'] = points_filter
         return data
+
+
+class StoryDetail(DetailView):
+    model = Story
+    template_name = 'story_detail.html'
+
+    def get_object(self):
+        obj = get_object_or_404(
+            Story.objects.select_related(
+                'sprint'
+            ),
+            pk = self.kwargs['pk'] 
+        )
+        return obj

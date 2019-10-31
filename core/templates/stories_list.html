@@ -8,28 +8,44 @@
         
     </head>
     <body>
-        {% if duration_average %}
-            <h3>Média de duração para {{ points }} pontos: {{ duration_average }}</h3>
+        <div class="container">
+            {% if duration_average %}
+                <h3>Média de duração para {{ points }} pontos: {{ duration_average }}</h3>
+                <br>
+            {% endif %}
+
+            <label for="points-filter">Filtrar por pontos de história:</label>
+            <select id="points-filter-select">
+                <option value="0">-----</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+                <option value="13">13</option>
+                <option value="21">21</option>
+            </select>
+            <button id="points-filter-button">Filtrar</button>
             <br>
-        {% endif %}
-
-        <label for="points-filter">Filtrar por pontos de história:</label>
-        <select id="points-filter-select">
-            <option value="0">-----</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="8">8</option>
-            <option value="13">13</option>
-            <option value="21">21</option>
-        </select>
-        <button id="points-filter-button">Filtrar</button>
-        <br>
-
-        {% for story in object_list %}
-            <p><b>Sprint {{ story.sprint.number }}:</b> {{story.description}} - {{ story.points }} pontos - Duração: {{ story.duration }}</p>
-        {% endfor %}
+            <table class="table">
+                <thead class="thead-dark">
+                    <th>Nº sprint</th>
+                    <th>Descrição</th>
+                    <th>Pontos</th>
+                    <th>Duração</th>
+                </thead>
+                <tbody>
+                    {% for story in object_list %}
+                        <tr>
+                            <td width="10%">{{ story.sprint.number }}</td>
+                            <td>{{ story.description }}</td>
+                            <td>{{ story.points }}</td>
+                            <td>{{ story.duration }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
