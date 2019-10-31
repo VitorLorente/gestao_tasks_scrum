@@ -71,7 +71,7 @@ class Story(models.Model):
     creation_date = models.DateField(_('Data de criação'))
     points = models.PositiveSmallIntegerField(_('Pontos da história'))
     duration = models.DurationField(_('Duração'))
-    sprint = models.ForeignKey('Sprint', on_delete=models.PROTECT)
+    sprint = models.ForeignKey('Sprint', on_delete=models.PROTECT, related_name='sprint_story')
     responsible = models.ForeignKey('Developer', on_delete=models.PROTECT)
 
     def __str__(self):

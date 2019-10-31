@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from core.views import StoriesList, StoryDetail
+from core.views import StoriesList, StoryDetail, SprintsList, SprintDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('story/', StoriesList.as_view(), name='stories-list'),
-    path('story/<int:pk>/', StoryDetail.as_view(), name='story-detail')
+    path('story/<int:pk>/', StoryDetail.as_view(), name='story-detail'),
+    path('sprint/', SprintsList.as_view(), name='sprints-list'),
+    path('sprint/<int:pk>/', SprintDetail.as_view(), name='sprint-detail')
 ]

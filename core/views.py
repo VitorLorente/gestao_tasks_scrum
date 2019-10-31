@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from django.db.models import Avg
+from django.db.models import Avg, Subquery, OuterRef, Sum
 
-from core.models import Story
+from core.models import Story, Sprint
 
 
 class StoriesList(ListView):
@@ -43,3 +43,33 @@ class StoryDetail(DetailView):
             pk = self.kwargs['pk'] 
         )
         return obj
+
+
+class SprintsList(ListView):
+    model = Sprint
+    template_name = 'sprints_list.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        sprints_count = Sprint.objects.count()
+        data['sprints_count'] = sprints_count
+        return data
+
+    def get_queryset(self):
+        queryset = Sprint.objects.annotate(
+            total_points=Sum('sprint_story__points')
+        ).all().order_by('-number')
+
+        return queryset
+
+class SprintDetail(DetailView):
+    model = Sprint
+    template_name = 'sprint_detail.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        stories = Story.objects.filter(
+            sprint=self.object
+        )
+        data['sprint_stories'] = stories
+        return data
