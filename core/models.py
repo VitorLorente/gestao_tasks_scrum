@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 
 class Sprint(models.Model):
@@ -75,6 +76,13 @@ class Story(models.Model):
 
     def __str__(self):
         return f'{self.code} - {self.points}'
+
+    @property
+    def get_absolute_url(self):
+        return reverse(
+            'story-detail',
+            args=[self.pk]
+        )
 
 
 class StoryTaskType(models.Model):

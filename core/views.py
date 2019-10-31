@@ -38,7 +38,7 @@ class StoryDetail(DetailView):
     def get_object(self):
         obj = get_object_or_404(
             Story.objects.select_related(
-                'sprint'
+                'sprint', 'responsible'
             ),
             pk = self.kwargs['pk'] 
         )
