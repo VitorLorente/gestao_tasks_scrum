@@ -29,6 +29,7 @@ class StoriesList(ListView):
             ).aggregate(Avg('duration'))['duration__avg']
             data['duration_average'] = duration_average
             data['points'] = points_filter
+        data['page_active'] = 'stories_list'
         return data
 
 
@@ -53,7 +54,7 @@ class StoryDetail(DetailView):
         ).select_related('task_type')
 
         data['story_task_types'] = task_types
-
+        data['page_active'] = 'story_detail'
         return data
 
 
@@ -65,11 +66,12 @@ class SprintsList(ListView):
         data = super().get_context_data(**kwargs)
         sprints_count = Sprint.objects.count()
         data['sprints_count'] = sprints_count
+        data['page_active'] = 'sprints_list'
         return data
 
     def get_queryset(self):
         queryset = Sprint.objects.annotate(
-            total_points=Sum('sprint_story__points')
+            total_points=Sum('sprint_story__endpoints')
         ).all().order_by('-number')
 
         return queryset
@@ -91,12 +93,13 @@ class SprintDetail(DetailView):
 
         data['sprint_stories'] = stories
         data['sprint_impedments'] = impedments
+        data['page_active'] = 'sprint_detail'
         return data
 
     def get_object(self):
         try:
             obj = Sprint.objects.annotate(
-                total_points=Sum('sprint_story__points')
+                total_points=Sum('sprint_story__endpoints')
             ).get(pk=self.kwargs['pk'])
         except Sprint.DoesNotExist:
             raise Http404("A sprint não existe.")

@@ -2,21 +2,30 @@
 {% block content %}
     <!--  -->
     <h3 class="text-center mt-5">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.sprint.number }}</h3>
+    <div class="d-flex justify-content-center">
+        ({% if object.completed %}Concluída{% else %}Em aberto{% endif %})
+    </div>
     <div class="container mt-5">
         <div class="d-flex justify-content-between row">
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
                 <div class="form-group">
-                    <label for="points"><b>Pontos:</b></label>
-                    <input id="points" type="text" value="{{ story.points }}" class="form-control" readonly>
+                    <label for="initial_points"><b>Pontos iniciais:</b></label>
+                    <input id="initial_points" type="text" value="{{ story.initial_points }}" class="form-control" readonly>
                 </div>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
+                <div class="form-group">
+                    <label for="endpoints"><b>Pontos finais:</b></label>
+                    <input id="endpoints" type="text" value="{{ story.endpoints }}" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-3 d-flex justify-content-center">
                 <div class="form-group">
                     <label for="duration"><b>Duração:</b></label>
                     <input id="duration" type="text" value="{{ story.duration }}" class="form-control" readonly>
                 </div>
             </div>
-            <div class="col-4 d-flex justify-content-center">
+            <div class="col-3 d-flex justify-content-center">
                 <div class="form-group">
                     <label for="responsible"><b>Responsável:</b></label>
                     <input id="responsible" type="text" value="{{ story.responsible.name }}" class="form-control" readonly>

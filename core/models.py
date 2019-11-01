@@ -95,7 +95,7 @@ class Story(models.Model):
     completed = models.BooleanField(_('História concluída?'))
 
     def __str__(self):
-        return f'{self.code} - {self.points}'
+        return f'{self.code} - {self.endpoints}'
 
     @property
     def get_absolute_url(self):
@@ -103,6 +103,13 @@ class Story(models.Model):
             'story-detail',
             args=[self.pk]
         )
+
+    @property
+    def is_completed(self):
+        completed = 'Não'
+        if self.completed:
+            completed = 'Sim'
+        return completed
 
 
 class StoryTaskType(models.Model):
