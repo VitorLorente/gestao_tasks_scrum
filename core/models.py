@@ -83,7 +83,8 @@ class Story(models.Model):
     code = models.CharField(_('Código no Jira'), max_length=7)
     description = models.TextField(_('Descrição'))
     creation_date = models.DateField(_('Data de criação'))
-    points = models.PositiveSmallIntegerField(_('Pontos da história'))
+    initial_points = models.PositiveSmallIntegerField(_('Pontos iniciais da história'))
+    endpoints = models.PositiveSmallIntegerField(_('Pontos finais da história'))
     duration = models.DurationField(_('Duração'))
     sprint = models.ForeignKey(
         'Sprint',
@@ -91,6 +92,7 @@ class Story(models.Model):
         related_name='sprint_story'
     )
     responsible = models.ForeignKey('Developer', on_delete=models.PROTECT)
+    completed = models.BooleanField(_('História concluída?'))
 
     def __str__(self):
         return f'{self.code} - {self.points}'
