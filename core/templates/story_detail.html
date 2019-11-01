@@ -45,9 +45,26 @@
                     </div>
                 </div>
             </div>
-            <div class="container story-description-container d-flex justify-content-center mt-4">
+            <div class="container story-description-container d-flex justify-content-center mt-4 mb-3">
                 <p class="text-justify col-8"><q>{{ story.description }}</q></p>
             </div>
+            <h4 class="text-center">Principais tipos de tarefa da história:</h4>
+            <table class="table mt-3">
+                <thead class="thead-dark">
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Área</th>
+                </thead>
+                <tbody>
+                    {% for task in story_task_types %}
+                        <tr>
+                            <td>{{ task.task_type.description }}</td>
+                            <td>{{ task.task_type.title }}</td>
+                            <td>{{ task.task_type.get_development_area_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
 
 

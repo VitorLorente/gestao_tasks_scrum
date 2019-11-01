@@ -85,7 +85,11 @@ class Story(models.Model):
     creation_date = models.DateField(_('Data de criação'))
     points = models.PositiveSmallIntegerField(_('Pontos da história'))
     duration = models.DurationField(_('Duração'))
-    sprint = models.ForeignKey('Sprint', on_delete=models.PROTECT, related_name='sprint_story')
+    sprint = models.ForeignKey(
+        'Sprint',
+        on_delete=models.PROTECT,
+        related_name='sprint_story'
+    )
     responsible = models.ForeignKey('Developer', on_delete=models.PROTECT)
 
     def __str__(self):
@@ -105,3 +109,20 @@ class StoryTaskType(models.Model):
 
     def __str__(self):
         return f'{self.story.code} - {self.task_type.title}'
+
+
+class Impedment(models.Model):
+    description = models.TextField(_('Descrição'))
+    sprint = models.ForeignKey(
+        'Sprint',
+        on_delete=models.PROTECT,
+        related_name='sprint_impedment'
+    )
+    date = models.DateField(_('Data'))
+    reporter = models.ForeignKey(
+        'Developer',
+        on_delete=models.PROTECT
+    )
+
+    def __str__(self):
+        return f'Impedimento da sprint {self.sprint.number} em {self.date} relatado por {self.reporter.name}'

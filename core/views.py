@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
 
-from core.models import Story, Sprint
+from core.models import Story, Sprint, Impedment, TaskType, StoryTaskType
 
 
 class StoriesList(ListView):
@@ -45,6 +45,17 @@ class StoryDetail(DetailView):
         )
         return obj
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+
+        task_types = StoryTaskType.objects.filter(
+            story=self.object
+        ).select_related('task_type')
+
+        data['story_task_types'] = task_types
+
+        return data
+
 
 class SprintsList(ListView):
     model = Sprint
@@ -69,10 +80,17 @@ class SprintDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+
         stories = Story.objects.filter(
             sprint=self.object
         ).select_related('responsible')
+
+        impedments = Impedment.objects.filter(
+            sprint=self.object
+        ).select_related('reporter')
+
         data['sprint_stories'] = stories
+        data['sprint_impedments'] = impedments
         return data
 
     def get_object(self):
