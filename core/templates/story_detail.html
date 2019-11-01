@@ -23,26 +23,30 @@
         </nav>
         <div class="container mt-5">
             <h3 class="text-center">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.sprint.number }}</h3>
-            <div class="d-flex justify-content-center story-infos-container mt-4">
-                <div>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <th>Points</th>
-                            <th>Duration</th>
-                            <th>Responsible</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ story.points }}</td>
-                                <td>{{ story.duration }}</td>
-                                <td>{{ story.responsible.name }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="container mt-5">
+                <div class="d-flex justify-content-between row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <div class="form-group">
+                            <label for="points"><b>Pontos:</b></label>
+                            <input id="points" type="text" value="{{ story.points }}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center">
+                        <div class="form-group">
+                            <label for="duration"><b>Duração:</b></label>
+                            <input id="duration" type="text" value="{{ story.duration }}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center">
+                        <div class="form-group">
+                            <label for="responsible"><b>Responsável:</b></label>
+                            <input id="responsible" type="text" value="{{ story.responsible.name }}" class="form-control" readonly>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="container story-description-container d-flex justify-content-center mt-4">
-                <p class="text-justify col-6"><q>{{ object.description }}</q></p>
+                <p class="text-justify col-8"><q>{{ story.description }}</q></p>
             </div>
         </div>
 
