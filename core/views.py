@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.db.models import Avg, Subquery, OuterRef, Sum
+from django.http import Http404
 
 from core.models import Story, Sprint
 
@@ -40,7 +41,7 @@ class StoryDetail(DetailView):
             Story.objects.select_related(
                 'sprint', 'responsible'
             ),
-            pk = self.kwargs['pk'] 
+            pk=self.kwargs['pk'] 
         )
         return obj
 
@@ -73,3 +74,12 @@ class SprintDetail(DetailView):
         ).select_related('responsible')
         data['sprint_stories'] = stories
         return data
+
+    def get_object(self):
+        try:
+            obj = Sprint.objects.annotate(
+                total_points=Sum('sprint_story__points')
+            ).get(pk=self.kwargs['pk'])
+        except Sprint.DoesNotExist:
+            raise Http404("A sprint não existe.")
+        return obj

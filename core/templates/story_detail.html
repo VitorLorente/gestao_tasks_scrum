@@ -8,6 +8,19 @@
         
     </head>
     <body>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item active ml-5">
+                    <a class="nav-link" href="{% url 'stories-list' %}">Histórias</a>
+                </li>
+                <li class="nav-item ml-5">
+                    <a class="nav-link" href="{% url 'sprints-list' %}">Sprints</a>
+                </li>
+                <li class="nav-item ml-5">
+                    <a class="nav-link" href="#">Dashboard</a>
+                </li>
+            </ul>
+        </nav>
         <div class="container mt-5">
             <h3 class="text-center">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.sprint.number }}</h3>
             <div class="d-flex justify-content-center story-infos-container mt-4">

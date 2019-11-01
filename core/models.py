@@ -21,6 +21,20 @@ class Sprint(models.Model):
             active = 'Ativa'
         return f'Sprint {self.number}: {self.start_date} - {self.end_date} ({active})'
 
+    @property
+    def get_absolute_url(self):
+        return reverse(
+            'sprint-detail',
+            args=[self.pk]
+        )
+
+    @property
+    def is_active(self):
+        active = 'Finalizada'
+        if self.active:
+            active = 'Ativa'
+        return active
+
 
 class Developer(models.Model):
     SENIORITY_CHOICE_SENIOR = ('senior', _('Sênior'))
