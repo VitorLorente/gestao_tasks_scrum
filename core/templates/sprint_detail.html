@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Detalhes da sprint {{ object.number }}{% endblock %}
 {% block content %}
     <!--  -->
     <h3 class="text-center mt-4"><b>Sprint {{ object.number }}</b> - {{ object.is_active }}</h3>

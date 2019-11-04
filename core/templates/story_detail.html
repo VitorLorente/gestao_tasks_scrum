@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Detalhes da história {{ object.code }}{% endblock %}
 {% block content %}
     <!--  -->
     <h3 class="text-center mt-4">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.sprint.number }}</h3>
