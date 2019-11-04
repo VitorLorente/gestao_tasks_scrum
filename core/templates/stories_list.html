@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <!--  -->
+    <h3 class="text-center mt-4">Listage de histórias</h3>
     <div class="form-inline mt-5">
         <div class="form-group">
             <label for="points-filter-select" class="control-label"><b>Filtrar por pontos de história:</b></label>
@@ -22,7 +23,7 @@
     <br>
     {% if duration_average %}
         <div class="container d-flex justify-content-center">
-            <h3>Média de duração para {{ points }} pontos: {{ duration_average }}</h3>
+            <h4>Média de duração para {{ points }} pontos: {{ duration_average }}</h4>
             <br>
         </div>
     {% endif %}
