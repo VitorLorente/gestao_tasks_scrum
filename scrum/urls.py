@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from core.views import StoriesList, StoryDetail, SprintsList, SprintDetail, StoryRepoint, Home
+from core.views import StoriesList, StoryDetail, SprintsList, SprintDetail, StoryRepoint, Home, CloseSprint
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('sprint/', SprintsList.as_view(), name='sprints-list'),
     path('sprint/<int:pk>/', SprintDetail.as_view(), name='sprint-detail'),
     path('story/<int:pk>/repoint/', StoryRepoint.as_view(), name='sprint-repoint'),
+    path('sprint/<int:pk>/close/', CloseSprint.as_view(), name='close-sprint'),
 ]

@@ -135,3 +135,24 @@ class Impedment(models.Model):
 
     def __str__(self):
         return f'Impedimento da sprint {self.sprint.number} em {self.date} relatado por {self.reporter.name}'
+
+
+class BugTask(models.Model):
+    description = models.TextField(_('Descrição'))
+    sprint = models.ForeignKey(
+        'Sprint',
+        on_delete=models.PROTECT,
+        related_name='sprint_bug'
+    )
+    creation_date = models.DateField(_('Data de criação'))
+    responsible = models.ForeignKey(
+        'Developer',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
+    duration = models.DurationField(_('Duração'), null=True, blank=True)
+    code = models.CharField(_('Código no Jira'), max_length=7)
+
+    def __str__(self):
+        return f'Bug {self.code} - Sprint {self.sprint.number}'

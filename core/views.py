@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
 
-from core.models import Story, Sprint, Impedment, TaskType, StoryTaskType
+from core.models import Story, Sprint, Impedment, TaskType, StoryTaskType, BugTask
 
 
 class Home(TemplateView):
@@ -93,10 +93,15 @@ class SprintDetail(DetailView):
 
         impedments = Impedment.objects.filter(
             sprint=self.object
-        ).select_related('reporter')
+        ).select_related('reporter').order_by('-date')
+
+        bugs = BugTask.objects.filter(
+            sprint=self.object
+        ).select_related('responsible').order_by('-creation_date')
 
         data['sprint_stories'] = stories
         data['sprint_impedments'] = impedments
+        data['sprint_bugs'] = bugs
         data['page_active'] = 'sprint_detail'
         return data
 
@@ -116,5 +121,16 @@ class StoryRepoint(UpdateView):
     def get_success_url(self):
         return reverse(
             'story-detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+
+class CloseSprint(UpdateView):
+    model = Sprint
+    fields = ['active']
+
+    def get_success_url(self):
+        return reverse(
+            'sprint-detail',
             kwargs={'pk': self.kwargs['pk']}
         )
