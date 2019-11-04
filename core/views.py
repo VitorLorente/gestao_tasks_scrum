@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
 
 from core.models import Story, Sprint, Impedment, TaskType, StoryTaskType
+
+
+class Home(TemplateView):
+    template_name = 'home.html'
 
 
 class StoriesList(ListView):
