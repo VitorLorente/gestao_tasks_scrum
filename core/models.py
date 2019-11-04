@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.db.models import Sum
 
 
 class Sprint(models.Model):
@@ -34,6 +35,24 @@ class Sprint(models.Model):
         if self.active:
             active = 'Ativa'
         return active
+
+    def calculate_completed_points(self):
+        points_sum = Story.objects.filter(
+            sprint=self,
+            completed=True
+        ).aggregate(Sum('endpoints')).get('endpoints__sum')
+        if points_sum:
+            return points_sum
+        return 0
+
+    def calculate_open_points(self):
+        points_sum = Story.objects.filter(
+            sprint=self,
+            completed=False
+        ).aggregate(Sum('endpoints')).get('endpoints__sum')
+        if points_sum:
+            return points_sum
+        return 0 
 
 
 class Developer(models.Model):
