@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, get_object_or_404, reverse
+from django.views.generic import ListView, DetailView, UpdateView
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
 
@@ -14,7 +14,7 @@ class StoriesList(ListView):
         points_filter = self.request.GET.get('points', None)
         if points_filter and int(points_filter) > 0:
             return Story.objects.filter(
-                points=points_filter
+                endpoints=points_filter
             ).order_by('creation_date')
         return Story.objects.all()
 
@@ -25,7 +25,7 @@ class StoriesList(ListView):
         data['points'] = None
         if points_filter and int(points_filter) > 0:
             duration_average = Story.objects.filter(
-                points=points_filter
+                endpoints=points_filter
             ).aggregate(Avg('duration'))['duration__avg']
             data['duration_average'] = duration_average
             data['points'] = points_filter
@@ -104,3 +104,13 @@ class SprintDetail(DetailView):
         except Sprint.DoesNotExist:
             raise Http404("A sprint não existe.")
         return obj
+
+class StoryRepoint(UpdateView):
+    model = Story
+    fields = ['endpoints']
+
+    def get_success_url(self):
+        return reverse(
+            'story-detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
