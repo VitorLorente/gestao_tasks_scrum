@@ -37,9 +37,11 @@
     <div class="container story-description-container d-flex justify-content-center mt-4 mb-3">
         <p class="text-justify col-8 text-center"><q>{{ story.description }}</q></p>
     </div>
-    <div class="container story-description-container d-flex justify-content-center mt-4 mb-3">
-        <a class="btn btn-dark" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
+    <div class="container story-description-container d-flex justify-content-center mt-4 mb-4">
+        <a class="btn btn-dark mr-3" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
+        <a class="btn btn-dark ml-3" href="#" data-toggle="modal" data-target="#story-extend-sprint">Prorrogar</a>
     </div>
+    
     <h4 class="text-center">Principais tipos de tarefa da história:</h4>
     <table class="table mt-3">
         <thead class="thead-dark">
@@ -58,6 +60,7 @@
         </tbody>
     </table>
 
+    <!-- Modal para repontuação da história -->
     <div class="modal fade" id="story-repoint" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <form method="POST" action="{% url 'sprint-repoint' pk=object.pk %}" class="form-inline">
@@ -97,5 +100,44 @@
             </form>
         </div>
     </div>
-    <!--  -->
+    <!-- Fim do modal para repontuação da história -->
+
+    <!-- Modal para prorrogar história -->
+    <div class="modal fade" id="story-extend-sprint" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{% url 'extend-sprint' %}" class="form-inline">
+                {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Prorrogar história {{ object.code }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center"><b>Sprint atual: {{ object.end_sprint.number }}</b></p>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <input id="story" type="hidden" name="story" value="{{ object.pk }}">
+                                <label for="sprint" class="label-control">Novos pontos: </label>
+                                <div class="col-sm-5">
+                                    <select id="sprint" class="form-control" name="sprint">
+                                        <option value="">-----</option>
+                                        {% for sprint in sprints_to_extend %}
+                                            <option value="{{sprint.pk}}">Sprint {{sprint.number}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Enviar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fim do modal para prorrogar história -->
 {% endblock %}

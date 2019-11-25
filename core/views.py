@@ -5,7 +5,8 @@ from django.views.generic import (
     ListView,
     DetailView,
     UpdateView,
-    TemplateView
+    TemplateView,
+    CreateView
 )
 
 from core.models import (
@@ -70,6 +71,13 @@ class StoryDetail(DetailView):
             story=self.object
         ).select_related('task_type')
 
+
+
+        sprints_to_extend = Sprint.objects.filter(
+            end_date__gt=self.object.end_sprint.end_date
+        ).order_by('number')
+
+        data['sprints_to_extend'] = sprints_to_extend
         data['story_task_types'] = task_types
         data['page_active'] = 'story_detail'
         return data
@@ -146,4 +154,15 @@ class CloseSprint(UpdateView):
         return reverse(
             'sprint-detail',
             kwargs={'pk': self.kwargs['pk']}
+        )
+
+class ExtendSprint(CreateView):
+    model = StorySprint
+    fields = ['story', 'sprint']
+
+    def get_success_url(self):
+        story_pk = self.request.POST['story']
+        return reverse(
+            'story-detail',
+            kwargs={'pk': story_pk}
         )
