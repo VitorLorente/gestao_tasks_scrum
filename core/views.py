@@ -1,9 +1,22 @@
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
+from django.views.generic import (
+    ListView,
+    DetailView,
+    UpdateView,
+    TemplateView
+)
 
-from core.models import Story, Sprint, Impedment, TaskType, StoryTaskType, BugTask
+from core.models import (
+    Story,
+    Sprint,
+    Impedment,
+    TaskType,
+    StoryTaskType,
+    BugTask,
+    StorySprint
+)
 
 
 class Home(TemplateView):
@@ -44,7 +57,7 @@ class StoryDetail(DetailView):
     def get_object(self):
         obj = get_object_or_404(
             Story.objects.select_related(
-                'sprint', 'responsible'
+                'responsible'
             ),
             pk=self.kwargs['pk'] 
         )
@@ -75,7 +88,7 @@ class SprintsList(ListView):
 
     def get_queryset(self):
         queryset = Sprint.objects.annotate(
-            total_points=Sum('sprint_story__endpoints')
+            total_points=Sum('sprint_storysprint__story__endpoints')
         ).all().order_by('-number')
 
         return queryset
@@ -87,9 +100,9 @@ class SprintDetail(DetailView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
 
-        stories = Story.objects.filter(
+        stories = StorySprint.objects.filter(
             sprint=self.object
-        ).select_related('responsible')
+        ).select_related('story', 'sprint', 'story__responsible')
 
         impedments = Impedment.objects.filter(
             sprint=self.object
@@ -108,7 +121,7 @@ class SprintDetail(DetailView):
     def get_object(self):
         try:
             obj = Sprint.objects.annotate(
-                total_points=Sum('sprint_story__endpoints')
+                total_points=Sum('sprint_storysprint__story__endpoints')
             ).get(pk=self.kwargs['pk'])
         except Sprint.DoesNotExist:
             raise Http404("A sprint não existe.")

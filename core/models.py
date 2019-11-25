@@ -105,11 +105,6 @@ class Story(models.Model):
     initial_points = models.PositiveSmallIntegerField(_('Pontos iniciais da história'))
     endpoints = models.PositiveSmallIntegerField(_('Pontos finais da história'))
     duration = models.DurationField(_('Duração'))
-    sprint = models.ForeignKey(
-        'Sprint',
-        on_delete=models.PROTECT,
-        related_name='sprint_story'
-    )
     responsible = models.ForeignKey('Developer', on_delete=models.PROTECT)
     completed = models.BooleanField(_('História concluída?'))
 
@@ -129,6 +124,49 @@ class Story(models.Model):
         if self.completed:
             completed = 'Sim'
         return completed
+
+    @property
+    def creation_sprint(self):
+        story_sprint = StorySprint.objects.filter(
+            story=self
+        ).select_related(
+            'sprint'
+        ).order_by('sprint__start_date').first()
+
+        return story_sprint.sprint
+
+    @property
+    def end_sprint(self):
+        story_sprint = StorySprint.objects.filter(
+            story=self
+        ).select_related(
+            'sprint'
+        ).order_by('sprint__start_date').last()
+
+        return story_sprint.sprint
+
+    @property
+    def count_sprints(self):
+        story_sprint_count = StorySprint.objects.filter(
+            story=self
+        ).select_related(
+            'sprint'
+        ).count()
+
+        return story_sprint_count
+
+
+class StorySprint(models.Model):
+    story = models.ForeignKey(
+        'Story',
+        on_delete=models.PROTECT,
+        related_name='story_storysprint'
+    )
+    sprint = models.ForeignKey(
+        'Sprint',
+        on_delete=models.PROTECT,
+        related_name='sprint_storysprint'
+    )
 
 
 class StoryTaskType(models.Model):

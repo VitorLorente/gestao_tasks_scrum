@@ -2,7 +2,7 @@
 {% block title %}Detalhes da história {{ object.code }}{% endblock %}
 {% block content %}
     <!--  -->
-    <h3 class="text-center mt-4">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.sprint.number }}</h3>
+    <h3 class="text-center mt-4">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.end_sprint.number }}</h3>
     <div class="d-flex justify-content-center">
         ({% if object.completed %}Concluída{% else %}Em aberto{% endif %})
     </div>

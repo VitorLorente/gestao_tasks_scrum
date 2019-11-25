@@ -31,7 +31,8 @@
     <br>
     <table class="table">
         <thead class="thead-dark">
-            <th>Nº sprint</th>
+            <th>Sprint início</th>
+            <th>Sprint fim</th>
             <th>Descrição</th>
             <th>Pontos início</th>
             <th>Pontos final</th>
@@ -41,7 +42,8 @@
         <tbody>
             {% for story in object_list %}
                 <tr>
-                    <td width="10%"><a href='{{ story.sprint.get_absolute_url }}'>{{ story.sprint.number }}</a></td>
+                    <td width="7%"><a href='{{ story.creation_sprint.get_absolute_url }}'>{{ story.creation_sprint.number }}</a></td>
+                    <td width="7%"><a href='{{ story.end_sprint.get_absolute_url }}'>{{ story.end_sprint.number }}</a></td>
                     <td><a href='{{ story.get_absolute_url }}'>{{ story.description }}</a></td>
                     <td>{{ story.initial_points }}</td>
                     <td>{{ story.endpoints }}</td>
