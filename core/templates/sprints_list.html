@@ -3,7 +3,10 @@
 {% block content %}
     <!--  -->
     <h3 class="text-center mt-4">Listagem de sprints</h3>
-    <h4 class="mt-5">Total de sprints: {{ sprints_count }}</h4>
+    <div class="container d-flex justify-content-between mt-5">
+        <a class="btn btn-dark" href="#" data-toggle="modal" data-target="#create-sprint">Nova sprint</a>
+        <h4 class="">Total de sprints: {{ sprints_count }}</h4>
+    </div>
     <br>
     <table class="table">
         <thead class="thead-dark">
@@ -25,5 +28,39 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="modal fade" id="create-sprint" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <form method="POST" action="{% url 'sprint-create' %}" class="form-inline p-4">
+                {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nova sprint</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="text-center">Criar Sprint {{next_sprint_number}}</h3>
+                        <p class="text-center">(Ao criar uma sprint nova, a anterior será encerrada automaticamente)</p>
+                        <div class="container d-flex justify-content-center">
+                                <div class="input-group mr-3">
+                                    <label for="id_{{form.start_date.name}}" class="mr-1">Início: </label>
+                                    <input id="id_{{form.start_date.name}}" type="date" name="{{form.start_date.name}}" class="form-control">
+                                </div>
+                                <div class="input-group ml-3">
+                                    <label for="id_{{form.end_date.name}}" class="mr-1">Fim: </label>
+                                    <input id="id_{{form.end_date.name}}" type="date" name="{{form.end_date.name}}" class="form-control">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Cadastrar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <!--  -->
 {% endblock %}

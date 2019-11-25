@@ -1,0 +1,17 @@
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<h3 class="text-center">Criar Sprint {{next_sprint_number}}</h3>
+<p class="text-center">(Ao criar uma sprint nova, a anterior será encerrada automaticamente)</p>
+<form method="POST" action="{% url 'sprint-create' %}" class="form-inline p-4">
+    {% csrf_token %}
+    <div class="input-group mr-3">
+        <label for="id_{{form.start_date.name}}" class="mr-1">Início: </label>
+        <input id="id_{{form.start_date.name}}" type="date" name="{{form.start_date.name}}" class="form-control">
+    </div>
+    <div class="input-group ml-3">
+        <label for="id_{{form.end_date.name}}" class="mr-1">Fim: </label>
+        <input id="id_{{form.end_date.name}}" type="date" name="{{form.end_date.name}}" class="form-control">
+    </div>
+</form>

@@ -19,6 +19,8 @@ from core.models import (
     StorySprint
 )
 
+from core.forms import SprintForm
+
 
 class Home(TemplateView):
     template_name = 'home.html'
@@ -89,7 +91,17 @@ class SprintsList(ListView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+
         sprints_count = Sprint.objects.count()
+
+        form = SprintForm()
+        
+        next_sprint_number = Sprint.objects.all().order_by(
+            'number'
+        ).last().number + 1
+
+        data['next_sprint_number'] = next_sprint_number
+        data['form'] = form
         data['sprints_count'] = sprints_count
         data['page_active'] = 'sprints_list'
         return data
@@ -156,6 +168,7 @@ class CloseSprint(UpdateView):
             kwargs={'pk': self.kwargs['pk']}
         )
 
+
 class ExtendSprint(CreateView):
     model = StorySprint
     fields = ['story', 'sprint']
@@ -165,4 +178,14 @@ class ExtendSprint(CreateView):
         return reverse(
             'story-detail',
             kwargs={'pk': story_pk}
+        )
+
+
+class SprintCreate(CreateView):
+    model = Sprint
+    form_class = SprintForm
+
+    def get_success_url(self):
+        return reverse(
+            'sprints-list'
         )

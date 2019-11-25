@@ -1,19 +1,19 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 
 class Sprint(models.Model):
     number = models.PositiveSmallIntegerField(_('Número da sprint'))
     start_date = models.DateField(_('Data de início da sprint'))
     end_date = models.DateField(_('Data de finalização da sprint'))
-    active = models.BooleanField(_('Sprint ativa?'))
+    active = models.BooleanField(_('Sprint ativa?'), default=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['number'], name='number'),
-            models.UniqueConstraint(fields=['active'], name='active')
+            models.UniqueConstraint(fields=['active'], condition=Q(active=True), name='active')
         ]
 
     def __str__(self):
