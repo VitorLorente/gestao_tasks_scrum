@@ -50,7 +50,7 @@
         <tbody>
             {% for story in sprint_stories %}
                 <tr>
-                    <td><a href='{{ story.get_absolute_url }}'>{{ story.story.description }}</a></td>
+                    <td><a href='{{ story.story.get_absolute_url }}'>{{ story.story.description }}</a></td>
                     <td>{{ story.story.initial_points }}</td>
                     <td>{{ story.story.endpoints }}</td>
                     <td>{{ story.story.duration }}</td>
