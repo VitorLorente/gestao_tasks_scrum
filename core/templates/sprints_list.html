@@ -31,7 +31,7 @@
 
     <div class="modal fade" id="create-sprint" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" action="{% url 'sprint-create' %}" class="form-inline p-4">
+            <form method="POST" action="{% url 'sprint-create' %}" class="form-inline p-4" autocomplete="off">
                 {% csrf_token %}
                 <div class="modal-content">
                     <div class="modal-header">
@@ -41,16 +41,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div id="container-datepicker"></div>
                         <h3 class="text-center">Criar Sprint {{next_sprint_number}}</h3>
                         <p class="text-center">(Ao criar uma sprint nova, a anterior será encerrada automaticamente)</p>
                         <div class="container d-flex justify-content-center">
                                 <div class="input-group mr-3">
                                     <label for="id_{{form.start_date.name}}" class="mr-1">Início: </label>
-                                    <input id="id_{{form.start_date.name}}" type="date" name="{{form.start_date.name}}" class="form-control">
+                                    <input id="id_{{form.start_date.name}}" type="text" name="{{form.start_date.name}}" class="form-control">
                                 </div>
                                 <div class="input-group ml-3">
                                     <label for="id_{{form.end_date.name}}" class="mr-1">Fim: </label>
-                                    <input id="id_{{form.end_date.name}}" type="date" name="{{form.end_date.name}}" class="form-control">
+                                    <input id="id_{{form.end_date.name}}" type="text" name="{{form.end_date.name}}" class="form-control">
                                 </div>
                         </div>
                     </div>
@@ -63,4 +64,18 @@
         </div>
     </div>
     <!--  -->
+{% endblock %}
+{% block script %}
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function() {
+        $(function(){
+            $('#id_start_date, #id_end_date').datepicker({
+                beforeShow:function(textbox, instance){
+                    $('#container-datepicker').append($('#ui-datepicker-div'));
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
