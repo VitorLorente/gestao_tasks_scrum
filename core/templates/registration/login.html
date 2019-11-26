@@ -7,6 +7,13 @@
     </head>
     <body style="background-color: rgb(250, 248, 243);">
         <h1 class="text-center mt-5">Gerenciador de tarefas Scrum</h1>
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger container d-flex justify-content-center" style="width: 50%;">
+                {% for error in form.non_field_errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="d-flex align-items-center vh-100 justify-content-center">
             <div style="padding-bottom: 15%;">
                 <div style="border-radius: 5px; border: 2px solid black; background-color:rgb(240, 238, 238)" class="p-5">
@@ -19,6 +26,11 @@
                             <div class="form-group d-flex justify-content-center">
                                 <label for="id_{{ field.name }}" class="mr-2"><b>{{ field.label }}:</b></label>
                                 <input id="id_{{ field.name }}" type="{{field.field.widget.input_type}}" name="{{ field.name }}" class="form-control">
+                                {% if field.errors %}
+                                {% for error in field.errors %}
+                                <small class="text-danger">{{ error|escape }}</small>
+                                {% endfor %}
+                                {% endif %}
                             </div>
 
                         {% endfor %}
