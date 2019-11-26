@@ -6,11 +6,18 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style>
+            .btn-nav-logout:hover {
+                background-color: #75818d;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body style="min-height: 100vh; position: relative; padding-bottom: 80px; background-color: rgb(250, 248, 243);">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" style="width: 100%;">
                 <li class="nav-item {% if page_active == 'stories_list' or page_active == 'story_detail' %}active{% endif %} ml-5">
                     <a class="nav-link" href="{% url 'stories-list' %}">Histórias</a>
                 </li>
@@ -20,6 +27,13 @@
                 <li class="nav-item ml-5">
                     <a class="nav-link" href="#">Dashboard</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto btn-nav-logout" style="border: 2px solid white; padding: 10px; border-radius: 5px;" title="Logout">
+                <a href="{% url 'logout' %}">
+                    <li clasa="nav-item">
+                        <i class="fas fa-sign-out-alt" style="font-size: 30px; color: white;"></i>
+                    </li>
+                </a>
             </ul>
         </nav>
         <div class="container">

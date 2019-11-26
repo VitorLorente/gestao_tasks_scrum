@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, reverse
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404
@@ -21,11 +23,12 @@ from core.models import (
 
 from core.forms import SprintForm
 
-
+@method_decorator(login_required, name='dispatch')
 class Home(TemplateView):
     template_name = 'home.html'
 
 
+@method_decorator(login_required, name='dispatch')
 class StoriesList(ListView):
     model = Story
     template_name = 'stories_list.html'
@@ -53,6 +56,7 @@ class StoriesList(ListView):
         return data
 
 
+@method_decorator(login_required, name='dispatch')
 class StoryDetail(DetailView):
     model = Story
     template_name = 'story_detail.html'
@@ -85,6 +89,7 @@ class StoryDetail(DetailView):
         return data
 
 
+@method_decorator(login_required, name='dispatch')
 class SprintsList(ListView):
     model = Sprint
     template_name = 'sprints_list.html'
@@ -113,6 +118,8 @@ class SprintsList(ListView):
 
         return queryset
 
+
+@method_decorator(login_required, name='dispatch')
 class SprintDetail(DetailView):
     model = Sprint
     template_name = 'sprint_detail.html'
@@ -147,6 +154,8 @@ class SprintDetail(DetailView):
             raise Http404("A sprint não existe.")
         return obj
 
+
+@method_decorator(login_required, name='dispatch')
 class StoryRepoint(UpdateView):
     model = Story
     fields = ['endpoints']
@@ -158,6 +167,7 @@ class StoryRepoint(UpdateView):
         )
 
 
+@method_decorator(login_required, name='dispatch')
 class CloseSprint(UpdateView):
     model = Sprint
     fields = ['active']
@@ -169,6 +179,7 @@ class CloseSprint(UpdateView):
         )
 
 
+@method_decorator(login_required, name='dispatch')
 class ExtendSprint(CreateView):
     model = StorySprint
     fields = ['story', 'sprint']
@@ -181,6 +192,7 @@ class ExtendSprint(CreateView):
         )
 
 
+@method_decorator(login_required, name='dispatch')
 class SprintCreate(CreateView):
     model = Sprint
     form_class = SprintForm
