@@ -1,6 +1,6 @@
 from django.contrib import admin
 from core.models import (
-    Sprint, Developer, TaskType, Story, StoryTaskType, Impedment, BugTask
+    Sprint, Developer, TaskType, Story, StoryTaskType, Impedment, BugTask, StorySprint
 )
 
 # Register your models here.
@@ -31,4 +31,8 @@ class ImpedmentAdmin(admin.ModelAdmin):
 
 @admin.register(BugTask)
 class BugTaskAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(StorySprint)
+class StorySprintAdmin(admin.ModelAdmin):
     pass
