@@ -8,7 +8,7 @@ from django.views.generic import (
     DetailView,
     UpdateView,
     TemplateView,
-    CreateView
+    CreateView,
 )
 
 from core.models import (
@@ -18,10 +18,13 @@ from core.models import (
     TaskType,
     StoryTaskType,
     BugTask,
-    StorySprint
+    StorySprint,
 )
 
-from core.forms import SprintForm
+from core.forms import (
+    SprintForm,
+    StoryForm,
+)
 
 @method_decorator(login_required, name='dispatch')
 class Home(TemplateView):
@@ -101,9 +104,13 @@ class SprintsList(ListView):
 
         form = SprintForm()
         
-        next_sprint_number = Sprint.objects.all().order_by(
-            'number'
-        ).last().number + 1
+        sprints = Sprint.objects.all()
+        next_sprint_number = 1
+
+        if sprints:
+            next_sprint_number = sprints.order_by(
+                'number'
+            ).last().number + 1
 
         data['next_sprint_number'] = next_sprint_number
         data['form'] = form
@@ -139,6 +146,9 @@ class SprintDetail(DetailView):
             sprint=self.object
         ).select_related('responsible').order_by('-creation_date')
 
+        story_form = StoryForm(sprint_pk=self.object.pk)
+
+        data['story_form'] = story_form
         data['sprint_stories'] = stories
         data['sprint_impedments'] = impedments
         data['sprint_bugs'] = bugs
@@ -201,3 +211,16 @@ class SprintCreate(CreateView):
         return reverse(
             'sprints-list'
         )
+
+
+@method_decorator(login_required, name='dispatch')
+class StoryCreate(CreateView):
+    model = Story
+    form_class = StoryForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'sprint_pk': self.kwargs['pk']
+        })
+        return kwargs
