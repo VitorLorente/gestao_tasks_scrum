@@ -11,7 +11,8 @@ from core.views import (
     StoryDetail,
     StoriesList,
     StoryRepoint,
-    StoryCreate,
+    # StoryCreate,
+    story_create
 )
 
 urlpatterns = [
@@ -26,5 +27,5 @@ urlpatterns = [
     path('story/<int:pk>/repoint/', StoryRepoint.as_view(), name='sprint-repoint'),
     path('sprint/<int:pk>/close/', CloseSprint.as_view(), name='close-sprint'),
     path('extend-story/', ExtendSprint.as_view(), name='extend-story'),
-    path('sprint/<int:pk>/story/create/', StoryCreate.as_view(), name='create-story'),
+    path('sprint/<int:pk>/story/create/', story_create, name='create-story'),
 ]

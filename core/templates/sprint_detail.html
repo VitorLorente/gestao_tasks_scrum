@@ -145,20 +145,20 @@
                         <div id="container-datepicker"></div>
                         <div class="container d-flex justify-content-between row">
                             <div class="form-group col-3">
-                                <label for="id_{{form.code.name}}" class="mr-1"><b>Código:</b> </label>
-                                <input id="id_{{form.code.name}}" name="{{form.code.name}}" class="form-control" type="text">
+                                <label for="id_{{story_form.code.name}}" class="mr-1"><b>Código:</b> </label>
+                                <input id="id_{{story_form.code.name}}" name="{{story_form.code.name}}" class="form-control" type="text">
                             </div>
                             <div class="form-group col-3">
-                                <label for="id_{{form.initial_points.name}}" class="mr-1"><b>Pontos:</b> </label>
-                                <input id="id_{{form.initial_points.name}}" name="{{form.initial_points.name}}" class="form-control" type="text">
+                                <label for="id_{{story_form.initial_points.name}}" class="mr-1"><b>Pontos:</b> </label>
+                                <input id="id_{{story_form.initial_points.name}}" name="{{story_form.initial_points.name}}" class="form-control" type="text">
                             </div>
                             <div class="form-group col-3">
-                                <label for="id_{{form.creation_date.name}}" class="mr-1"><b>Data de criação:</b> </label>
-                                <input id="id_{{form.creation_date.name}}" name="{{form.creation_date.name}}" class="form-control" type="text">
+                                <label for="id_{{story_form.creation_date.name}}" class="mr-1"><b>Data de criação:</b> </label>
+                                <input id="id_{{story_form.creation_date.name}}" name="{{story_form.creation_date.name}}" class="form-control" type="text">
                             </div>
                             <div class="form-group col-3">
-                                <label for="id_{{form.responsible.name}}" class="mr-1"><b>Responsável:</b> </label>
-                                <select id="id_{{form.responsible.name}}" name="{{form.responsible.name}}" class="form-control">
+                                <label for="id_{{story_form.responsible.name}}" class="mr-1"><b>Responsável:</b> </label>
+                                <select id="id_{{story_form.responsible.name}}" name="{{story_form.responsible.name}}" class="form-control">
                                     {% for item in story_form.responsible.field.choices %}
                                         <option value="{{item.0}}">{{item.1}}</option>
                                     {% endfor %}
@@ -167,13 +167,13 @@
                         </div>
                         <div class="container d-flex justify-content-center row">
                             <div class="form-group col-12">
-                                <label for="id_{{form.description.name}}" class="mr-1"><b>Descrição:</b> </label>
-                                <textarea id="id_{{form.description.name}}" name="{{form.description.name}}" class="form-control"></textarea>
+                                <label for="id_{{story_form.description.name}}" class="mr-1"><b>Descrição:</b> </label>
+                                <textarea id="id_{{story_form.description.name}}" name="{{story_form.description.name}}" class="form-control"></textarea>
                             </div>
                         </div> 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-dark">Confirmar</button>
+                        <button type="submit" class="btn btn-dark">Cadastrar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>

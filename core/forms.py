@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django import forms
 from core.models import Sprint, Story, StorySprint
 
@@ -40,14 +42,13 @@ class StoryForm(forms.ModelForm):
         exclude = ('completed', 'endpoints', 'duration',)
     
     def save(self, commit=True):
-        story_sprint = Sprint.objects.get(pk=sprint_pk)
+        story_sprint = Sprint.objects.get(pk=self.sprint_pk)
         new_story = Story(
             code=self.cleaned_data['code'],
             description=self.cleaned_data['description'],
             creation_date=self.cleaned_data['creation_date'],
             initial_points=self.cleaned_data['initial_points'],
-            endpoints=self.cleaned_data['endpoints'],
-            duration=0,
+            duration=timedelta(minutes=0),
             responsible=self.cleaned_data['responsible'],
             completed=False
         )
