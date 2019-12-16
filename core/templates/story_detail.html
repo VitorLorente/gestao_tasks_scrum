@@ -38,8 +38,9 @@
         <p class="text-justify col-8 text-center"><q>{{ story.description }}</q></p>
     </div>
     <div class="container story-description-container d-flex justify-content-center mt-4 mb-4">
-        <a class="btn btn-dark mr-3" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
-        <a class="btn btn-dark ml-3" href="#" data-toggle="modal" data-target="#story-extend-sprint">Prorrogar</a>
+        <a class="btn btn-dark mr-3 col-3" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
+        <a class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-extend-sprint">Prorrogar</a>
+        <a class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-conclude">Concluir</a>
     </div>
     
     <h4 class="text-center">Principais tipos de tarefa da história:</h4>
@@ -120,7 +121,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="form-group">
                                         <input id="story" type="hidden" name="story" value="{{ object.pk }}">
-                                        <label for="sprint" class="label-control">Novos pontos: </label>
+                                        <label for="sprint" class="label-control">Nova sprint: </label>
                                         <div class="col-sm-5">
                                             <select id="sprint" class="form-control" name="sprint">
                                                 <option value="">-----</option>

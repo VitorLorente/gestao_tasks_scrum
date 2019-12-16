@@ -188,6 +188,10 @@ class StorySprint(models.Model):
         on_delete=models.PROTECT,
         related_name='sprint_storysprint'
     )
+    completed = models.BooleanField(
+        'Finalizada?',
+        default=False
+    )
 
 
 class StoryTaskType(models.Model):

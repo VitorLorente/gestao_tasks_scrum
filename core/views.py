@@ -226,20 +226,3 @@ def story_create(request, pk):
         )
     )
         
-
-# class StoryCreate(CreateView):
-#     model = Story
-#     form_class = StoryForm
-
-#     def get_form_kwargs(self):
-#         kwargs = super().get_form_kwargs()
-#         kwargs.update({
-#             'sprint_pk': self.kwargs['pk']
-#         })
-#         return kwargs
-
-#     def get_success_url(self):
-#         return reverse(
-#             'sprint-detail',
-#             kwargs={'pk':self.kwargs['pk']}
-#         )
