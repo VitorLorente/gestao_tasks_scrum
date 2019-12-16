@@ -38,7 +38,7 @@
     </div>
     <div class="container story-description-container d-flex justify-content-center mt-4 mb-4">
         <a class="btn btn-dark mr-3 col-3" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
-        <a class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-extend-sprint">Prorrogar</a>
+        <button class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-extend-sprint" {% if story.completed %}disabled{% endif %}>Prorrogar</button>
         <button class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-conclude" {% if story.completed %}disabled{% endif %}>Concluir</button>
     </div>
     

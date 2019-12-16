@@ -14,6 +14,7 @@
             <th>Inicio</th>
             <th>Fim</th>
             <th>Pontos totais</th>
+            <th>Pontos entregues</th>
             <th>Ativa?</th>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                     <td>{{ sprint.start_date|date:"d/m/Y" }}</td>
                     <td>{{ sprint.end_date|date:"d/m/Y" }}</td>
                     <td>{{ sprint.total_points }}</td>
+                    <td>{{ sprint.delivered_points }}</td>
                     <td>{% if sprint.active %}Sim{% else %}Não{% endif %}</td>
                 </tr>
             {% endfor %}

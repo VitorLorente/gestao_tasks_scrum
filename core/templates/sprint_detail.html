@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Detalhes da sprint {{ object.number }}{% endblock %}
+{% load custom_tags %}
 {% block content %}
     <!--  -->
     <h3 class="text-center mt-4"><b>Sprint {{ object.number }}</b> - {{ object.is_active }}</h3>
@@ -40,7 +41,7 @@
             <div class="col-4 d-flex justify-content-center">
                 <div class="form-group">
                     <br>
-                    <input class="btn btn-dark aling-middle" type="button" value="Nova história" data-toggle="modal" data-target="#create-story">
+                    <input class="btn btn-dark aling-middle" type="button" value="Nova história" {% if not object.active %}disabled="disabled"{% endif %} data-toggle="modal" data-target="#create-story">
                 </div>
             </div>
         </div>
@@ -51,6 +52,8 @@
             <th>Descrição</th>
             <th>Pontos iniciais</th>
             <th>Pontos finais</th>
+            <th>Prorrogada?</th>
+            <th>Concluída?</th>
             <th>Duração</th>
         </thead>
         <tbody>
@@ -59,6 +62,8 @@
                     <td><a href='{{ story.story.get_absolute_url }}'>{{ story.story.description }}</a></td>
                     <td>{{ story.story.initial_points }}</td>
                     <td>{{ story.story.endpoints }}</td>
+                    <td>{% extended story %}</td>
+                    <td>{% completed story object.pk %}</td>
                     <td>{{ story.story.duration }}</td>
                 </tr>
             {% endfor %}
