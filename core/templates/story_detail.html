@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Detalhes da história {{ object.code }}{% endblock %}
 {% block content %}
-    <!--  -->
     <h3 class="text-center mt-4">História <b>{{ object.code }}</b> de {{ object.creation_date|date:"d/m/Y" }} - Sprint {{ object.end_sprint.number }}</h3>
     <div class="d-flex justify-content-center">
-        ({% if object.completed %}Concluída{% else %}Em aberto{% endif %})
+        <b>({% if object.completed %}Concluída{% else %}Em aberto{% endif %})</b>
     </div>
     <div class="container mt-5">
         <div class="d-flex justify-content-between row">
@@ -40,7 +39,7 @@
     <div class="container story-description-container d-flex justify-content-center mt-4 mb-4">
         <a class="btn btn-dark mr-3 col-3" href="#" data-toggle="modal" data-target="#story-repoint">Repontuar</a>
         <a class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-extend-sprint">Prorrogar</a>
-        <a class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-conclude">Concluir</a>
+        <button class="btn btn-dark ml-3 col-3" href="#" data-toggle="modal" data-target="#story-conclude" {% if story.completed %}disabled{% endif %}>Concluir</button>
     </div>
     
     <h4 class="text-center">Principais tipos de tarefa da história:</h4>
@@ -148,4 +147,34 @@
         </div>
     </div>
     <!-- Fim do modal para prorrogar história -->
+
+    <!-- Modal para completar história -->
+    <div class="modal fade" id="story-conclude" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{% url 'complete-story' %}" class="form-inline">
+                {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Completar história {{ object.code }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <input id="story_pk" type="hidden" name="story_pk" value="{{ object.pk }}">
+                                        
+                        <br>
+                        <h4 class="text-center">Deseja completar a História {{ object.code }}?</h4>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-dark">Confirmar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fim do modal para completar história -->
 {% endblock %}

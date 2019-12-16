@@ -226,3 +226,21 @@ def story_create(request, pk):
         )
     )
         
+@login_required
+def complete_story(request):
+    if request.POST:
+        story_pk = request.POST.get('story_pk', None)
+        story = Story.objects.get(pk=story_pk)
+        story.completed = True
+        story.save()
+        combine = StorySprint.objects.filter(
+            story=story
+        ).order_by('sprint__number').last()
+        combine.completed = True
+        combine.save()
+    return HttpResponseRedirect(
+        reverse(
+            'story-detail',
+            kwargs={'pk': story_pk}
+        )
+    )
