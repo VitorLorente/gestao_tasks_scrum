@@ -19,7 +19,7 @@
             </div>
             <div class="col-4 d-flex justify-content-center">
                 <div class="form-group">
-                    <label for="sprint_end_date"><b>Total de pontos:</b></label>
+                    <label for="sprint_end_date"><b>Total de pontos iniciais:</b></label>
                     <input id="sprint_end_date" type="text" value="{{ object.total_points }}" class="form-control" readonly>
                 </div>
             </div>
@@ -27,8 +27,8 @@
         <div class="d-flex justify-content-between row">
             <div class="col-4 d-flex justify-content-center">
                 <div class="form-group">
-                    <label for="sprint_start_date"><b>Status:</b></label>
-                    <input id="sprint_start_date" type="text" value="{{ object.is_active }}" class="form-control" readonly>
+                    <label for="sprint_start_date"><b>Total de pontos entregues:</b></label>
+                    <input id="sprint_start_date" type="text" value="{{ object.delivered_points }}" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-4 d-flex justify-content-center">

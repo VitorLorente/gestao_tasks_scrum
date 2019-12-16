@@ -36,23 +36,18 @@ class Sprint(models.Model):
             active = 'Ativa'
         return active
 
-    def calculate_completed_points(self):
-        points_sum = Story.objects.filter(
+    @property
+    def delivered_points(self):
+        combines = StorySprint.objects.filter(
             sprint=self,
             completed=True
-        ).aggregate(Sum('endpoints')).get('endpoints__sum')
+        ).select_related('story')
+        points_sum = sum([combine.story.endpoints for combine in combines])
+
         if points_sum:
             return points_sum
         return 0
 
-    def calculate_open_points(self):
-        points_sum = Story.objects.filter(
-            sprint=self,
-            completed=False
-        ).aggregate(Sum('endpoints')).get('endpoints__sum')
-        if points_sum:
-            return points_sum
-        return 0 
 
 
 class Developer(models.Model):
