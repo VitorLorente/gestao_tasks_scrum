@@ -213,10 +213,9 @@ class SprintCreate(CreateView):
         )
 
 
-# @method_decorator(login_required, name='dispatch')
+@login_required
 def story_create(request, pk):
     if request.POST:
-        import pdb; pdb.set_trace()
         form = StoryForm(request.POST, sprint_pk=pk)
         if form.is_valid():
             form.save()
