@@ -48,6 +48,7 @@ class StoryForm(forms.ModelForm):
             description=self.cleaned_data['description'],
             creation_date=self.cleaned_data['creation_date'],
             initial_points=self.cleaned_data['initial_points'],
+            endpoints=self.cleaned_data['initial_points'],
             duration=timedelta(minutes=0),
             responsible=self.cleaned_data['responsible'],
             completed=False
