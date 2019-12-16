@@ -99,10 +99,31 @@ class TaskType(models.Model):
 
 
 class Story(models.Model):
+    POINTS_CHOICE_1 = (1, 1)
+    POINTS_CHOICE_2 = (2, 2)
+    POINTS_CHOICE_3 = (3, 3)
+    POINTS_CHOICE_5 = (5, 5)
+    POINTS_CHOICE_8 = (8, 8)
+    POINTS_CHOICE_13 = (13, 13)
+    POINTS_CHOICE_21 = (21, 21)
+
+    POINTS_CHOICES = (
+        POINTS_CHOICE_1,
+        POINTS_CHOICE_2,
+        POINTS_CHOICE_3,
+        POINTS_CHOICE_5,
+        POINTS_CHOICE_8,
+        POINTS_CHOICE_13,
+        POINTS_CHOICE_21
+    )
+
     code = models.CharField(_('Código no Jira'), max_length=7)
     description = models.TextField(_('Descrição'))
     creation_date = models.DateField(_('Data de criação'))
-    initial_points = models.PositiveSmallIntegerField(_('Pontos iniciais da história'))
+    initial_points = models.PositiveSmallIntegerField(
+        _('Pontos iniciais da história'),
+        choices=POINTS_CHOICES
+    )
     endpoints = models.PositiveSmallIntegerField(_('Pontos finais da história'))
     duration = models.DurationField(_('Duração'))
     responsible = models.ForeignKey('Developer', on_delete=models.PROTECT)

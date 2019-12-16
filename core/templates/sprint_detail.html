@@ -132,7 +132,7 @@
     <!-- MODAL CRIAR HISTÓRIA -->
     <div class="modal fade" id="create-story" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" action="{% url 'create-story' pk=object.pk %}">
+            <form method="POST" action="{% url 'create-story' pk=object.pk %}" autocomplete="off">
                 {% csrf_token %}
                 <div class="modal-content">
                     <div class="modal-header">
@@ -150,7 +150,11 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="id_{{story_form.initial_points.name}}" class="mr-1"><b>Pontos:</b> </label>
-                                <input id="id_{{story_form.initial_points.name}}" name="{{story_form.initial_points.name}}" class="form-control" type="text">
+                                <select id="id_{{story_form.initial_points.name}}" name="{{story_form.initial_points.name}}" class="form-control">
+                                    {% for item in story_form.initial_points.field.choices %}
+                                        <option value="{{item.0}}">{{item.1}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="form-group col-3">
                                 <label for="id_{{story_form.creation_date.name}}" class="mr-1"><b>Data de criação:</b> </label>
@@ -180,4 +184,18 @@
             </form>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function() {
+        $(function(){
+            $('#id_creation_date').datepicker({
+                beforeShow:function(textbox, instance){
+                    $('#container-datepicker').append($('#ui-datepicker-div'));
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
