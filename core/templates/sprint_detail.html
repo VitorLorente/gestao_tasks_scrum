@@ -62,7 +62,7 @@
                     <td><a href='{{ story.story.get_absolute_url }}'>{{ story.story.description }}</a></td>
                     <td>{{ story.story.initial_points }}</td>
                     <td>{{ story.story.endpoints }}</td>
-                    <td>{% extended story %}</td>
+                    <td>{% extended story object.pk %}</td>
                     <td>{% completed story object.pk %}</td>
                     <td>{{ story.story.duration }}</td>
                 </tr>

@@ -6,12 +6,14 @@ from core.models import StorySprint, Sprint
 register = template.Library()
 
 @register.simple_tag(name='extended')
-def status_story_extended(combine_story_sprint):
+def status_story_extended(combine_story_sprint, sprint_pk):
+    sprint = Sprint.objects.get(pk=sprint_pk)
     combines = StorySprint.objects.filter(
-        story=combine_story_sprint.story
+        story=combine_story_sprint.story,
+        sprint__start_date__gt=sprint.start_date
     )
 
-    if combines.count() > 1:
+    if combines.count() > 0:
         return "Sim"
     return "Não"
 
