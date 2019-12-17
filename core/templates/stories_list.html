@@ -31,24 +31,24 @@
     <br>
     <table class="table">
         <thead class="thead-dark">
-            <th>Sprint início</th>
-            <th>Sprint fim</th>
+            <th class="text-center">Sprint início</th>
+            <th class="text-center">Sprint fim</th>
             <th>Descrição</th>
-            <th>Pontos início</th>
-            <th>Pontos final</th>
-            <th>Duração</th>
-            <th>Concluída?</th>
+            <th class="text-center">Pontos início</th>
+            <th class="text-center">Pontos final</th>
+            <th class="text-center">Duração</th>
+            <th class="text-center">Concluída?</th>
         </thead>
         <tbody>
             {% for story in object_list %}
                 <tr>
-                    <td width="7%"><a href='{{ story.creation_sprint.get_absolute_url }}'>{{ story.creation_sprint.number }}</a></td>
-                    <td width="7%"><a href='{{ story.end_sprint.get_absolute_url }}'>{{ story.end_sprint.number }}</a></td>
+                    <td class="text-center" width="7%"><a href='{{ story.creation_sprint.get_absolute_url }}'>{{ story.creation_sprint.number }}</a></td>
+                    <td class="text-center" width="7%"><a href='{{ story.end_sprint.get_absolute_url }}'>{{ story.end_sprint.number }}</a></td>
                     <td><a href='{{ story.get_absolute_url }}'>{{ story.description }}</a></td>
-                    <td>{{ story.initial_points }}</td>
-                    <td>{{ story.endpoints }}</td>
-                    <td>{{ story.duration }}</td>
-                    <td>{{ story.is_completed }}</td>
+                    <td class="text-center">{{ story.initial_points }}</td>
+                    <td class="text-center">{{ story.endpoints }}</td>
+                    <td class="text-center">{{ story.duration }}</td>
+                    <td class="text-center">{{ story.is_completed }}</td>
                 </tr>
             {% endfor %}
         </tbody>

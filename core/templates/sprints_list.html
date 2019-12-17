@@ -10,22 +10,22 @@
     <br>
     <table class="table">
         <thead class="thead-dark">
-            <th>Nº sprint</th>
-            <th>Inicio</th>
-            <th>Fim</th>
-            <th>Pontos totais</th>
-            <th>Pontos entregues</th>
-            <th>Ativa?</th>
+            <th class="text-center">Nº sprint</th>
+            <th class="text-center">Inicio</th>
+            <th class="text-center">Fim</th>
+            <th class="text-center">Pontos totais</th>
+            <th class="text-center">Pontos entregues</th>
+            <th class="text-center">Ativa?</th>
         </thead>
         <tbody>
             {% for sprint in object_list %}
                 <tr>
-                    <td width="10%"><a href='{{ sprint.get_absolute_url }}'>{{ sprint.number }}</a></td>
-                    <td>{{ sprint.start_date|date:"d/m/Y" }}</td>
-                    <td>{{ sprint.end_date|date:"d/m/Y" }}</td>
-                    <td>{{ sprint.total_points }}</td>
-                    <td>{{ sprint.delivered_points }}</td>
-                    <td>{% if sprint.active %}Sim{% else %}Não{% endif %}</td>
+                    <td class="text-center" width="10%"><a href='{{ sprint.get_absolute_url }}'>{{ sprint.number }}</a></td>
+                    <td class="text-center">{{ sprint.start_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ sprint.end_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ sprint.total_points }}</td>
+                    <td class="text-center">{{ sprint.delivered_points }}</td>
+                    <td class="text-center">{% if sprint.active %}Sim{% else %}Não{% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>
