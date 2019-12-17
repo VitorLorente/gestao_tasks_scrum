@@ -36,7 +36,7 @@ class Home(TemplateView):
 class StoriesList(ListView):
     model = Story
     template_name = 'stories_list.html'
-    paginated_by = 1
+    paginated_by = 7
 
     def get_queryset(self):
         points_filter = self.request.GET.get('points', None)
@@ -70,7 +70,7 @@ class StoriesList(ListView):
 class StoryDetail(DetailView):
     model = Story
     template_name = 'story_detail.html'
-
+    paginated_by = 5
     def get_object(self):
         obj = get_object_or_404(
             Story.objects.select_related(
@@ -82,19 +82,21 @@ class StoryDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
 
         task_types = StoryTaskType.objects.filter(
             story=self.object
         ).select_related('task_type')
 
-
+        paginator = Paginator(task_types, self.paginated_by)
+        paginated_task_types = paginator.get_page(page)
 
         sprints_to_extend = Sprint.objects.filter(
             end_date__gt=self.object.end_sprint.end_date
         ).order_by('number')
 
         data['sprints_to_extend'] = sprints_to_extend
-        data['story_task_types'] = task_types
+        data['story_task_types'] = paginated_task_types
         data['page_active'] = 'story_detail'
         return data
 
@@ -103,6 +105,7 @@ class StoryDetail(DetailView):
 class SprintsList(ListView):
     model = Sprint
     template_name = 'sprints_list.html'
+    paginated_by = 7
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -126,11 +129,15 @@ class SprintsList(ListView):
         return data
 
     def get_queryset(self):
+        page = self.request.GET.get('page')
+
         queryset = Sprint.objects.annotate(
             total_points=Sum('sprint_storysprint__story__endpoints')
         ).all().order_by('-number')
 
-        return queryset
+        paginator = Paginator(queryset, self.paginated_by)
+        paginated_queryset = paginator.get_page(page)
+        return paginated_queryset
 
 
 @method_decorator(login_required, name='dispatch')

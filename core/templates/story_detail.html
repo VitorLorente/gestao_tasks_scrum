@@ -59,6 +59,33 @@
             {% endfor %}
         </tbody>
     </table>
+    <ul class="pagination">
+        <div class="container d-flex justify-content-between">
+            <li class="mt-2 mr-5">
+                <span><b>Página {{ story_task_types.number }} de {{ story_task_types.paginator.num_pages }}</b></span>
+            </li>
+            <div class="row">
+                {% if story_task_types.has_previous %}
+                    <li>
+                        <span title="Página anterior"><a class="btn btn-dark mr-1" href="?page={{ story_task_types.previous_page_number }}"><b><</b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark mr-1" href="#" disabled><b><</b></button></span>
+                    </li>
+                {% endif %}
+                {% if story_task_types.has_next %}
+                    <li>
+                        <span title="Próxima página"><a class="btn btn-dark" href="?page={{ story_task_types.next_page_number }}"><b>></b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark" href="#" disabled><b>></b></button></span>
+                    </li>
+                {% endif %}
+            </div>
+        </div>
+    </ul>
 
     <!-- Modal para repontuação da história -->
     <div class="modal fade" id="story-repoint" tabindex="-1" role="dialog">
