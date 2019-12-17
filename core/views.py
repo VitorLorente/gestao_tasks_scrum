@@ -144,13 +144,17 @@ class SprintsList(ListView):
 class SprintDetail(DetailView):
     model = Sprint
     template_name = 'sprint_detail.html'
+    paginated_by = 5
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        stories_page = self.request.GET.get('page')
 
         stories = StorySprint.objects.filter(
             sprint=self.object
         ).select_related('story', 'sprint', 'story__responsible')
+        paginator = Paginator(stories, self.paginated_by)
+        paginated_stories = paginator.get_page(stories_page)
 
         impedments = Impedment.objects.filter(
             sprint=self.object
@@ -163,7 +167,7 @@ class SprintDetail(DetailView):
         story_form = StoryForm(sprint_pk=self.object.pk)
 
         data['story_form'] = story_form
-        data['sprint_stories'] = stories
+        data['sprint_stories'] = paginated_stories
         data['sprint_impedments'] = impedments
         data['sprint_bugs'] = bugs
         data['page_active'] = 'sprint_detail'

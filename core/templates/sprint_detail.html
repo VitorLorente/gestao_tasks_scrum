@@ -46,8 +46,9 @@
             </div>
         </div>
     </div>
+    <!--  -->
     <h4 class="text-center">Histórias da sprint:</h4>
-    <table class="table mt-3 mb-5">
+    <table class="table mt-3">
         <thead class="thead-dark">
             <th>Descrição</th>
             <th class="text-center">Pontos iniciais</th>
@@ -69,6 +70,34 @@
             {% endfor %}
         </tbody>
     </table>
+    <ul class="pagination  mb-5">
+        <div class="container d-flex justify-content-between">
+            <li class="mt-2 mr-5">
+                <span><b>Página {{ sprint_stories.number }} de {{ sprint_stories.paginator.num_pages }}</b></span>
+            </li>
+            <div class="row">
+                {% if sprint_stories.has_previous %}
+                    <li>
+                        <span title="Página anterior"><a class="btn btn-dark mr-1" href="?page={{ sprint_stories.previous_page_number }}"><b><</b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark mr-1" href="#" disabled><b><</b></button></span>
+                    </li>
+                {% endif %}
+                {% if sprint_stories.has_next %}
+                    <li>
+                        <span title="Próxima página"><a class="btn btn-dark" href="?page={{ sprint_stories.next_page_number }}"><b>></b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark" href="#" disabled><b>></b></button></span>
+                    </li>
+                {% endif %}
+            </div>
+        </div>
+    </ul>
+    <!--  -->
     <h4 class="text-center">Impedimentos da sprint:</h4>
     <table class="table mt-3 mb-5">
         <thead class="thead-dark">
