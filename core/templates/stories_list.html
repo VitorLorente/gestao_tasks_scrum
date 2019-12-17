@@ -53,9 +53,24 @@
             {% endfor %}
         </tbody>
     </table>
+    <ul class="pagination">
+    {% if object_list.has_previous %}
+        <li>
+            <span><a href="?page={{ object_list.previous_page_number }}">Previous</a></span>
+        </li>
+    {% endif %}
+        <li class="">
+            <span>Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.</span>
+        </li>
+    {% if object_list.has_next %}
+        <li>
+            <span><a href="?page={{ object_list.next_page_number }}">Next</a></span>
+        </li>
+    {% endif %}
+    </ul>
     <!--  -->
-{% endblock %}
-{% block script %}
+    {% endblock %}
+    {% block script %}
 <script>
     $("#points-filter-button").click(function(){
         var path = window.location.pathname;

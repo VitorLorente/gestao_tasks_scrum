@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, reverse
 from django.db.models import Avg, Subquery, OuterRef, Sum
 from django.http import Http404, HttpResponseRedirect
@@ -35,14 +36,20 @@ class Home(TemplateView):
 class StoriesList(ListView):
     model = Story
     template_name = 'stories_list.html'
+    paginated_by = 2
 
     def get_queryset(self):
         points_filter = self.request.GET.get('points', None)
+        stories = Story.objects.all()
+        page = self.request.GET.get('page')
         if points_filter and int(points_filter) > 0:
-            return Story.objects.filter(
+            stories = stories.filter(
                 endpoints=points_filter
             ).order_by('creation_date')
-        return Story.objects.all()
+
+        paginator = Paginator(stories, self.paginated_by)
+        paginated_stories = paginator.get_page(page)
+        return paginated_stories
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
