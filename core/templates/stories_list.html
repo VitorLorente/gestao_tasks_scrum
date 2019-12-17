@@ -58,13 +58,14 @@
 {% block script %}
 <script>
     $("#points-filter-button").click(function(){
+        var path = window.location.pathname;
+        var host = window.location.host;
         var points = $("#points-filter-select").val();
-        console.log(points);
         if(parseInt(points) > 0){
-            window.location = "http://localhost:8000/story/?points=" + points;
+            window.location = 'http://' + host + path + "?points=" + points;
         }
         else if (parseInt(points) == 0){
-            window.location = "http://localhost:8000/story/";
+            window.location = 'http://' + host + path;
         }
     });
 </script>

@@ -34,6 +34,3 @@ def status_story_completed(combine_story_sprint, sprint_pk):
         return 'Sim'
 
     return 'Não'
-
-
-
