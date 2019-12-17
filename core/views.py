@@ -36,7 +36,7 @@ class Home(TemplateView):
 class StoriesList(ListView):
     model = Story
     template_name = 'stories_list.html'
-    paginated_by = 2
+    paginated_by = 1
 
     def get_queryset(self):
         points_filter = self.request.GET.get('points', None)

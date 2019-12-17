@@ -54,34 +54,48 @@
         </tbody>
     </table>
     <ul class="pagination">
-    {% if object_list.has_previous %}
-        <li>
-            <span><a href="?page={{ object_list.previous_page_number }}">Previous</a></span>
-        </li>
-    {% endif %}
-        <li class="">
-            <span>Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.</span>
-        </li>
-    {% if object_list.has_next %}
-        <li>
-            <span><a href="?page={{ object_list.next_page_number }}">Next</a></span>
-        </li>
-    {% endif %}
+        <div class="container d-flex justify-content-between">
+            <li class="mt-2 mr-5">
+                <span><b>Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}</b></span>
+            </li>
+            <div class="row">
+                {% if object_list.has_previous %}
+                    <li>
+                        <span title="Página anterior"><a class="btn btn-dark mr-1" href="?page={{ object_list.previous_page_number }}{% if points  %}&points={{ points }}{% endif %}"><b><</b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark mr-1" href="#" disabled><b><</b></button></span>
+                    </li>
+                {% endif %}
+                {% if object_list.has_next %}
+                    <li>
+                        <span title="Próxima página"><a class="btn btn-dark" href="?page={{ object_list.next_page_number }}{% if points %}&points={{ points }}{% endif %}"><b>></b></a></span>
+                    </li>
+                {% else %}
+                    <li>
+                        <span><button class="btn btn-dark" href="#" disabled><b>></b></button></span>
+                    </li>
+                {% endif %}
+            </div>
+        </div>
     </ul>
     <!--  -->
-    {% endblock %}
-    {% block script %}
-<script>
-    $("#points-filter-button").click(function(){
-        var path = window.location.pathname;
-        var host = window.location.host;
-        var points = $("#points-filter-select").val();
-        if(parseInt(points) > 0){
-            window.location = 'http://' + host + path + "?points=" + points;
-        }
-        else if (parseInt(points) == 0){
-            window.location = 'http://' + host + path;
-        }
-    });
-</script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $("#points-filter-button").click(function(){
+            var path = window.location.pathname;
+            var host = window.location.host;
+            var points = $("#points-filter-select").val();
+
+            if(parseInt(points) > 0){
+                window.location = 'http://' + host + path + "?points=" + points;
+            }
+            else if (parseInt(points) == 0){
+                window.location = 'http://' + host + path;
+            }
+        });
+    </script>
 {% endblock %}
