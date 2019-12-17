@@ -46,15 +46,15 @@
     <table class="table mt-3">
         <thead class="thead-dark">
             <th>Descrição</th>
-            <th>Tipo</th>
-            <th>Área</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Área</th>
         </thead>
         <tbody>
             {% for task in story_task_types %}
                 <tr>
                     <td>{{ task.task_type.description }}</td>
-                    <td>{{ task.task_type.title }}</td>
-                    <td>{{ task.task_type.get_development_area_display }}</td>
+                    <td class="text-center">{{ task.task_type.title }}</td>
+                    <td class="text-center">{{ task.task_type.get_development_area_display }}</td>
                 </tr>
             {% endfor %}
         </tbody>

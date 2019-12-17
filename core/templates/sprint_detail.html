@@ -50,21 +50,21 @@
     <table class="table mt-3 mb-5">
         <thead class="thead-dark">
             <th>Descrição</th>
-            <th>Pontos iniciais</th>
-            <th>Pontos finais</th>
-            <th>Prorrogada?</th>
-            <th>Concluída?</th>
-            <th>Duração</th>
+            <th class="text-center">Pontos iniciais</th>
+            <th class="text-center">Pontos finais</th>
+            <th class="text-center">Prorrogada?</th>
+            <th class="text-center">Concluída?</th>
+            <th class="text-center">Duração</th>
         </thead>
         <tbody>
             {% for story in sprint_stories %}
                 <tr>
                     <td><a href='{{ story.story.get_absolute_url }}'>{{ story.story.description }}</a></td>
-                    <td>{{ story.story.initial_points }}</td>
-                    <td>{{ story.story.endpoints }}</td>
-                    <td>{% extended story object.pk %}</td>
-                    <td>{% completed story object.pk %}</td>
-                    <td>{{ story.story.duration }}</td>
+                    <td class="text-center">{{ story.story.initial_points }}</td>
+                    <td class="text-center">{{ story.story.endpoints }}</td>
+                    <td class="text-center">{% extended story object.pk %}</td>
+                    <td class="text-center">{% completed story object.pk %}</td>
+                    <td class="text-center">{{ story.story.duration }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -73,15 +73,15 @@
     <table class="table mt-3 mb-5">
         <thead class="thead-dark">
             <th>Descrição</th>
-            <th>Data</th>
-            <th>Relator</th>
+            <th class="text-center">Data</th>
+            <th class="text-center">Relator</th>
         </thead>
         <tbody>
             {% for impedment in sprint_impedments %}
                 <tr>
                     <td>{{ impedment.description }}</td>
-                    <td>{{ impedment.date|date:"d/m/Y" }}</td>
-                    <td>{{ impedment.reporter.name }}</td>
+                    <td class="text-center">{{ impedment.date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ impedment.reporter.name }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -90,17 +90,17 @@
     <table class="table mt-3">
         <thead class="thead-dark">
             <th>Descrição</th>
-            <th>Data</th>
-            <th>Relator</th>
-            <th>Duração</th>
+            <th class="text-center">Data</th>
+            <th class="text-center">Relator</th>
+            <th class="text-center">Duração</th>
         </thead>
         <tbody>
             {% for bug in sprint_bugs %}
                 <tr>
                     <td>{{ bug.description }} - ({{ bug.code }})</td>
-                    <td>{{ bug.creation_date|date:"d/m/Y" }}</td>
-                    <td>{{ bug.responsible.name }}</td>
-                    <td>{% if bug.duration %}{{ bug.duration }}{% endif %}</td>
+                    <td class="text-center">{{ bug.creation_date|date:"d/m/Y" }}</td>
+                    <td class="text-center">{{ bug.responsible.name }}</td>
+                    <td class="text-center">{% if bug.duration %}{{ bug.duration }}{% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>
