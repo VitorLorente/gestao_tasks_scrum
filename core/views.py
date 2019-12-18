@@ -156,7 +156,7 @@ class SprintDetail(DetailView):
             'story',
             'sprint',
             'story__responsible'
-        ).order_by('pk')
+        ).order_by('-pk')
         paginator = Paginator(stories, self.paginated_by)
         paginated_stories = paginator.get_page(stories_page)
 
