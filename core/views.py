@@ -152,7 +152,11 @@ class SprintDetail(DetailView):
 
         stories = StorySprint.objects.filter(
             sprint=self.object
-        ).select_related('story', 'sprint', 'story__responsible')
+        ).select_related(
+            'story',
+            'sprint',
+            'story__responsible'
+        ).order_by('pk')
         paginator = Paginator(stories, self.paginated_by)
         paginated_stories = paginator.get_page(stories_page)
 
