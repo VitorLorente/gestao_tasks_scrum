@@ -15,6 +15,11 @@ from core.views import (
     complete_story
 )
 
+from core.api.views import (
+    SprintApiList,
+    DeveloperApiList
+)
+
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', Home.as_view(), name='home'),
@@ -29,4 +34,7 @@ urlpatterns = [
     path('sprint/<int:pk>/', SprintDetail.as_view(), name='sprint-detail'),
     path('sprint/<int:pk>/close/', CloseSprint.as_view(), name='close-sprint'),
     path('sprint/<int:pk>/story/create/', story_create, name='create-story'),
+    # API url's
+    path('api/sprints/', SprintApiList.as_view(), name='api-sprints-list'),
+    path('api/developers/', DeveloperApiList.as_view(), name='api-developers-list')
 ]
