@@ -12,6 +12,9 @@ python-decouple = "*"
 dj-static = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 
